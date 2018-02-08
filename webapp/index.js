@@ -4,6 +4,8 @@ const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./test.db');
 
+console.log('app listening on port 80');
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -71,5 +73,28 @@ app.get('/view', function (req, res) {
 		});
   
 })
+
+app.get('/record',function (req,res){
+	if(req.query.arr){
+		var arr = JSON.parse(req.query.arr);
+		console.log(arr[1]);
+		let tim = Date.now();
+		
+		db.run(`INSERT INTO records (time,person1,person2,person3,person4,person5,person6,person7,person8,person9,person10) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [tim,arr[0],arr[1],arr[2],arr[3],arr[4],arr[5],arr[6],arr[7],arr[8],arr[9],arr[10]], function(err) {
+		if (err) {
+		  return console.log(err.message);
+		}else{
+			// get the last insert id
+			console.log(this);
+			console.log(`A row has been inserted with rowid ${this.lastID}`);
+			res.send(this);
+		}
+		});
+		
+		
+	}else{
+		console.log("parameter missing");
+	}
+	});
 
 app.listen(80);
