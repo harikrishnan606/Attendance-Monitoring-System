@@ -96,5 +96,20 @@ app.get('/record',function (req,res){
 		console.log("parameter missing");
 	}
 	});
+	
+app.get('/attendance', function(req,res){
+		let sql = `SELECT * FROM records ORDER BY records_id`;
+
+		db.all(sql, [], (err, rows) => {
+		  if (err) {
+			throw err;
+		  }
+		  rows.forEach((row) => {
+			console.log(row.time);
+		  });
+			res.send(rows);
+		});
+	
+	});
 
 app.listen(80);
