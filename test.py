@@ -2,20 +2,29 @@ import cv2
 import numpy as np
 import requests
 import time
+import pigpio
 recognizer = cv2.face.createLBPHFaceRecognizer()
 recognizer.load('trainner/trainner.yml')
 cascadePath = "haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascadePath);
 attendarr = [0,0,0,0,0,0,0,0,0,0]
 
+pi = pigpio.pi()
+pi.set_mode(18,pigpio.INPUT)
+pi.set_pull_up_down(18, pigpio.PUD_DOWN)
 
-r = requests.get("http://localhost/attendance")
-print(r.content)
+#r = requests.get("http://localhost/attendance")
+#print(r.content)
 def keydetect():
 	print("waiting key press")
-	time.sleep(20)
-	imgpro()
+	while(1):
+		status = pi.read(18)
+		if status == True:
+			imgpro()
+		time.sleep(.01)
+
 def updatedata(arr):
+	print("Updating DB")
 	strin = str(arr)
 	url = "http://localhost/record?arr=" + strin
 	r = requests.get(url)
