@@ -35,12 +35,13 @@ html(lang='en')
         h3 Hover Rows
         // <p>The .table-hover class enables a hover state on table rows:</p>
         table.table.table-hover
-          thead
-            tr
-            each item in arr
-              td.rotate
-                div
-                  span item
+          each item,index1 in arr
+            thead            
+              tr            
+                each x,index2 in item
+                  td.rotate
+                    div
+                    span #{x}
               <!--td.rotate
                 div
                   span 2018:02:09::9:20

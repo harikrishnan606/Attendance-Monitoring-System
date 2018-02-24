@@ -31,37 +31,67 @@ function transposeArray(array, arrayLength){
 app.get('/view', function (req, res) {
 	
 	var arr = [];
-	let sql = `SELECT * FROM records ORDER BY records_id DESC LIMIT 12`;
-	console.log(arr);
-	db.all(sql, [], (err, rows) => {
-		if (err) {
+	var titlearr = [];
+	titlearr.push('Name');
+	let sql1 = `SELECT * FROM names ORDER BY id`;
+	db.all(sql1, [], (err, namerows) => {
+		  if (err) {
 			throw err;
-		}else{
-			console.log(rows);
-			rows.forEach((row) => {
-				var arrrow= [];
-				//console.log(row);
-				for (var key in row) {
-				  if (row.hasOwnProperty(key)) {
-					var val = row[key];
-					arrrow.push(val);
-					//console.log(val);
-				  }				  
-				}
-				console.log(arrrow);
-				arr.push(arrrow);
-			});
-			//arr[10,10] = 7;
-			console.log("final array...............");
-			console.log(arr);
-			var arr2 = transposeArray(arr, 12)
-			console.log(arr2);
-			//res.send(rows);
-			res.render('index', { arr: arr2});
-		}
-	});
+		  }else{
+			  
+					let sql = `SELECT * FROM records ORDER BY records_id DESC LIMIT 10`;
+					console.log(arr);
+					db.all(sql, [], (err, rows) => {
+						if (err) {
+							throw err;
+						}else{
+							//console.log(rows);
+							arr.push([0,0,0,0,0,0,0,0,0,0,0])
+							rows.forEach((row) => {
+								var arrrow= [];
+								//console.log(row);
+								for (var key in row) {
+								  if (row.hasOwnProperty(key)) {
+									  //console.log(key);
+									  if(key == 'records_id'){
+										  }else{
+												var val = row[key];
+												arrrow.push(val);
+												//console.log(val);
+											}
+								  }				  
+								}
+								//console.log(arrrow);
+								arr.push(arrrow);
+							});
+							//arr[10,10] = 7;
+							console.log("final array...............");
+							console.log(arr);
+							var arr2 = transposeArray(arr, 11)
+							console.log(arr2);
+							let i = 1;
+							arr2[0][0] = "Name"; 
+							namerows.forEach((row) => {
+								console.log(row.name);
+								//titlearr.push(row.name);
+								arr2[i][0] = row.name; 
+								i++;				
+							});
+							console.log("final array with names...............");
+							console.log(arr2);
+							//res.send(rows);
+							res.render('index', { arr: arr2});
+						}
+					});
 	
-})
+			  
+		  }
+	  });		
+});
+	
+	
+	
+
 
  app.get('/add', function (req, res) {
 	 if(req.query.id !=null && req.query.name!=null){
@@ -80,6 +110,7 @@ app.get('/view', function (req, res) {
 
 
 	 }else{
+		 res.send("parameter missing");
 		
 	}
 })
