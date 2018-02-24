@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
+const moment = require('moment');
 let db = new sqlite3.Database('./test.db');
 
 console.log('app listening on port 80');
@@ -54,7 +55,13 @@ app.get('/view', function (req, res) {
 								  if (row.hasOwnProperty(key)) {
 									  //console.log(key);
 									  if(key == 'records_id'){
-										  }else{
+										  }else if(key == 'time'){
+											let t = new Date(row[key]);
+											let formatted = moment.unix(row[key]).format("DD/MM/YY HH:MM"); //moment.unix(value).format("MM/DD/YYYY");
+											arrrow.push(formatted);
+										  }
+										  else
+										  {
 												var val = row[key];
 												arrrow.push(val);
 												//console.log(val);

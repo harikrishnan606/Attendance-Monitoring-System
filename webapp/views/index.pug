@@ -12,13 +12,13 @@ html(lang='en')
       background-color: blue;
       }
       td.rotate {
-      height: 100px;
+      height: 50px;
       white-space: nowrap;
       }
       td.rotate > div {
       transform:
       /* Magic Numbers */
-      translate(2px, 51px)
+      /*translate(2px, 51px)*/
       /* 45 is really 360 - 45 */
       rotate(315deg);
       width: 30px;
@@ -29,10 +29,10 @@ html(lang='en')
       }
   body
     .container-fluid
-      h2(style='color: white;') Hello, world!
+      h2(style='color: white;') Attendance Management System!
     .col-md-12
       .table-responsive
-        h3 Hover Rows
+        //h3   
         // <p>The .table-hover class enables a hover state on table rows:</p>
         table.table.table-hover
           tbody
@@ -41,5 +41,10 @@ html(lang='en')
                 each x,index2 in item
                   td.rotate
                     div
-                    span #{x}
+                    if x == 0
+                      span.glyphicon.glyphicon-remove(style='color: red')
+                    else if x == 1
+                      span.glyphicon.glyphicon-ok(style='color: green')
+                    else
+                      span #{x}
 
