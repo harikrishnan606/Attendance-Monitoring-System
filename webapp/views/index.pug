@@ -1,19 +1,141 @@
 doctype html
-html(lang="en")
+html(lang='en')
   head
-    title Jade
-    script(type="text/javascript").
-      foo = true;
-      bar = function () {};
-      if (foo) {
-      bar(1 + 5)
-      }jQuery
+    // Required meta tags
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    // Bootstrap CSS
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    title Attendance Management System
+    style(type='text/css').
+      .container-fluid{
+      background-color: blue;
+      }
+      td.rotate {
+      height: 100px;
+      white-space: nowrap;
+      }
+      td.rotate > div {
+      transform:
+      /* Magic Numbers */
+      translate(2px, 51px)
+      /* 45 is really 360 - 45 */
+      rotate(315deg);
+      width: 30px;
+      }
+      td.rotate > div > span {
+      border-bottom: 1px solid #ccc;
+      padding: 5px 10px;
+      }
   body
-    h1 Jade - node template engine
-    #container.col
-      p #{title}
-      p
-        | Jade is a terse and simple
-        | templating language with a
-        | strong focus on performance
-        | and powerful features.
+    .container-fluid
+      h2(style='color: white;') Hello, world!
+    .col-md-12
+      .table-responsive
+        h3 Hover Rows
+        // <p>The .table-hover class enables a hover state on table rows:</p>
+        table.table.table-hover
+          thead
+            tr
+            each item in arr
+              td.rotate
+                div
+                  span item
+              <!--td.rotate
+                div
+                  span 2018:02:09::9:20
+              td.rotate
+                div
+                  span 2018:02:09::9:20
+              td.rotate
+                div
+                  span 2018:02:09::9:20
+              td.rotate
+                div
+                  span 2018:02:09::9:20
+              td.rotate
+                div
+                  span 2018:02:09::9:20
+              td.rotate
+                div
+                  span 2018:02:09::9:20
+              td.rotate
+                div
+                  span 2018:02:09::9:20
+              td.rotate
+                div
+                  span 2018:02:09::9:20
+              td.rotate
+                div
+                  span 2018:02:09::9:20
+              td.rotate
+                div
+                  span 2018:02:09::9:20-->
+          tbody
+            tr
+              th Person2
+              // <td>2018:02:09::9:20</td>
+              td
+                span.glyphicon.glyphicon-ok(style='color: green')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+            tr
+              th Person2
+              td
+                span.glyphicon.glyphicon-ok(style='color: green')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+            tr
+              th Person2
+              td
+                span.glyphicon.glyphicon-ok(style='color: green')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')
+              td
+                span.glyphicon.glyphicon-remove(style='color: red')

@@ -13,8 +13,54 @@ app.get('/', function (req, res) {
   res.send('Hello World');
 })
 
+function transposeArray(array, arrayLength){
+    var newArray = [];
+    for(var i = 0; i < array.length; i++){
+        newArray.push([]);
+    };
+
+    for(var i = 0; i < array.length; i++){
+        for(var j = 0; j < arrayLength; j++){
+            newArray[j].push(array[i][j]);
+        };
+    };
+
+    return newArray;
+}
+
 app.get('/view', function (req, res) {
-  res.render('index', { title: 'Express' });
+	
+	var arr = [];
+	let sql = `SELECT * FROM records ORDER BY records_id DESC LIMIT 12`;
+	console.log(arr);
+	db.all(sql, [], (err, rows) => {
+		if (err) {
+			throw err;
+		}else{
+			console.log(rows);
+			rows.forEach((row) => {
+				var arrrow= [];
+				//console.log(row);
+				for (var key in row) {
+				  if (row.hasOwnProperty(key)) {
+					var val = row[key];
+					arrrow.push(val);
+					//console.log(val);
+				  }				  
+				}
+				console.log(arrrow);
+				arr.push(arrrow);
+			});
+			//arr[10,10] = 7;
+			console.log("final array...............");
+			console.log(arr);
+			var arr2 = transposeArray(arr, 12)
+			console.log(arr2);
+			//res.send(rows);
+			res.render('index', { arr: arr2});
+		}
+	});
+	
 })
 
  app.get('/add', function (req, res) {
@@ -98,7 +144,7 @@ app.get('/record',function (req,res){
 	});
 	
 app.get('/attendance', function(req,res){
-		let sql = `SELECT * FROM records ORDER BY records_id`;
+		let sql = `SELECT * FROM records ORDER BY records_id DESC LIMIT 10`;
 
 		db.all(sql, [], (err, rows) => {
 		  if (err) {
