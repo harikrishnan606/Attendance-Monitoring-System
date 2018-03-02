@@ -34,7 +34,7 @@ app.get('/view', function (req, res) {
 	var arr = [];
 	var titlearr = [];
 	titlearr.push('Name');
-	let sql1 = `SELECT * FROM names ORDER BY id`;
+	let sql1 = `SELECT * FROM names ORDER BY pos LIMIT 10`;
 	db.all(sql1, [], (err, namerows) => {
 		  if (err) {
 			throw err;
@@ -57,7 +57,7 @@ app.get('/view', function (req, res) {
 									  if(key == 'records_id'){
 										  }else if(key == 'time'){
 											let t = new Date(row[key]);
-											let formatted = moment.unix(row[key]).format("DD/MM/YY HH:MM"); //moment.unix(value).format("MM/DD/YYYY");
+											let formatted = moment.unix(row[key]/1000).format("DD/MM/YY hh:mm A"); //moment.unix(value).format("MM/DD/YYYY");
 											arrrow.push(formatted);
 										  }
 										  else
@@ -101,12 +101,12 @@ app.get('/view', function (req, res) {
 
 
  app.get('/add', function (req, res) {
-	 if(req.query.id !=null && req.query.name!=null){
-		let id = req.query.id;
+	 if(req.query.pos !=null && req.query.name!=null){
+		let pos = req.query.pos;
 		let name = req.query.name;
-		//let query = 'INSERT INTO names (pos,name) VALUES (id, name)'
+		//let query = 'INSERT INTO names (pos,name) VALUES (pos, name)'
 
-	  db.run(`INSERT INTO names (pos,name) VALUES (?, ?)`, [id,name], function(err) {
+	  db.run(`INSERT INTO names (pos,name) VALUES (?, ?)`, [pos,name], function(err) {
 		if (err) {
 		  return console.log(err.message);
 		}
@@ -123,12 +123,12 @@ app.get('/view', function (req, res) {
 })
 
  app.get('/rename', function (req, res) {
-	 if(req.query.id !=null && req.query.name!=null){
-		let id = req.query.id;
+	 if(req.query.pos !=null && req.query.name!=null){
+		let pos = req.query.pos;
 		let name = req.query.name;
 		//let query = 'INSERT INTO names (pos,name) VALUES (id, name)'
 
-	  db.run(`UPDATE names SET name = ? WHERE pos = ?`, [name,id], function(err) {
+	  db.run(`UPDATE names SET name = ? WHERE pos = ?`, [name,pos], function(err) {
 		if (err) {
 		  return console.log(err.message);
 		}
