@@ -33,6 +33,7 @@ def imgpro():
 	print("Camera initialising")
 	cam = cv2.VideoCapture(0)
 	font = cv2.FONT_HERSHEY_SIMPLEX
+	attendarr = [0,0,0,0,0,0,0,0,0,0]
 	for x in range(0,60):
 		print(x)
 		ret, im =cam.read()
@@ -43,28 +44,30 @@ def imgpro():
 			for(x,y,w,h) in faces:
 				cv2.rectangle(im,(x,y),(x+w,y+h),(225,0,0),2)
 				Id, conf = recognizer.predict(gray[y:y+h,x:x+w])
-				if(conf<50):
+				print conf
+				conf=int(conf)
+				if(conf<100):
 					attendarr[Id]=1
 					if(Id==1):
 						Id="1"
 					elif(Id==2):
-						Id="2"
+						Id="Neenu"
 					elif(Id==3):
-						Id="3"
+						Id="Akash"
 					elif(Id==4):
-						Id="4"
+						Id="Siddarth"
 					elif(Id==5):
-						Id="5"
+						Id="Athira"
 					elif(Id==6):
-						Id="6"
+						Id="Ankitha"
 					elif(Id==7):
-						Id="7"
+						Id="Joseph"
 					elif(Id==8):
-						Id="8"
+						Id="Jerry"
 					elif(Id==9):
 						Id="9"
-					elif(Id==10):
-						Id="10"
+					elif(Id==0):
+						Id="0"
 				else:
 					Id="Unknown"
 				#cv2.cv.PutText(cv2.cv.fromarray(im),str(Id), (x,y+h),font, 255)
